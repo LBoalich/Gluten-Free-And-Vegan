@@ -72,9 +72,12 @@ class HourWindow(ttk.Frame):
         #Initialize the slider variables
         self.startVar = tk.IntVar()
         self.endVar = tk.IntVar()
-        #Create and add hour sliders
-        self.startScale = tk.Scale(self, variable = self.startVar, from_=1, to =24, orient="horizontal", label="Open From:") 
-        self.endScale = tk.Scale(self, variable = self.endVar, from_=1, to =24, orient="horizontal", label="Open To:") 
+        #Create hour scales
+        self.startScale = tk.Scale(self, variable = self.startVar, from_=1, to =24, orient="horizontal", label="Open From:", length=200) 
+        self.endScale = tk.Scale(self, variable = self.endVar, from_=1, to =24, orient="horizontal", label="Open To:", length=200) 
+        #Set end scale initial value to 24
+        self.endScale.set(24)
+        #Add hour scales
         self.startScale.grid(row=0, column=0)
         self.endScale.grid(row=0, column=1)
         
@@ -132,6 +135,24 @@ class NeighborhoodWindow(ttk.Frame):
 
         addHoods(self)
 
+#Define entree price range refine window
+class PriceWindow(ttk.Frame):
+    """Allows users to filter the price range of an entree"""
+    def __init__(self, parent):
+        """Sets up the window, widgets, and data."""
+        super().__init__(parent)
+        #Initialize the slider variables
+        self.lowVar = tk.IntVar()
+        self.highVar = tk.IntVar()
+        #Create price scales
+        self.lowScale = tk.Scale(self, variable = self.lowVar, from_=5, to =200, orient="horizontal", label="Low Entree Price:", length=200) 
+        self.highScale = tk.Scale(self, variable = self.highVar, from_=5, to =200, orient="horizontal", label="High Entree Price:", length=200)
+        #Set high scale initial value to 200
+        self.highScale.set(200)
+        #Add price scales 
+        self.lowScale.grid(row=0, column=0, columnspan=2)
+        self.highScale.grid(row=0, column=2, columnspan=2)
+
 #Define main class to run the program
 class Main(tk.Tk):
     """Allows users to search for restaurants using search or filter."""
@@ -147,6 +168,7 @@ class Main(tk.Tk):
         self.hourWindow = HourWindow(self)
         self.categoryWindow = CategoryWindow(self)
         self.neighborhoodWindow = NeighborhoodWindow(self)
+        self.priceWindow = PriceWindow(self)
         #Add widgets
         self.searchWindow.pack()
         self.filterWindow.pack()
@@ -154,6 +176,7 @@ class Main(tk.Tk):
         self.hourWindow.pack()
         self.categoryWindow.pack()
         self.neighborhoodWindow.pack()
+        self.priceWindow.pack()
         #Run the program
         self.mainloop()
 
