@@ -153,6 +153,17 @@ class PriceWindow(ttk.Frame):
         self.lowScale.grid(row=0, column=0, columnspan=2)
         self.highScale.grid(row=0, column=2, columnspan=2)
 
+#Define specials window
+class SpecialsWindow(ttk.Frame):
+    """Allows user to find restaurants that have happy hours or specails."""
+    def __init__(self, parent):
+        """Sets up window, widgets, and data."""
+        super().__init__(parent)
+        #Create and add specials checkbutton
+        self.specialCheck = tk.IntVar()
+        self.specialsCheckbutton = tk.Checkbutton(self, text="Has Happy Hour or Specials", variable=self.specialCheck)
+        self.specialsCheckbutton.grid(row=0, column=0)
+
 #Define main class to run the program
 class Main(tk.Tk):
     """Allows users to search for restaurants using search or filter."""
@@ -169,6 +180,7 @@ class Main(tk.Tk):
         self.categoryWindow = CategoryWindow(self)
         self.neighborhoodWindow = NeighborhoodWindow(self)
         self.priceWindow = PriceWindow(self)
+        self.specialsWindow = SpecialsWindow(self)
         #Add widgets
         self.searchWindow.pack()
         self.filterWindow.pack()
@@ -177,6 +189,7 @@ class Main(tk.Tk):
         self.categoryWindow.pack()
         self.neighborhoodWindow.pack()
         self.priceWindow.pack()
+        self.specialsWindow.pack()
         #Run the program
         self.mainloop()
 
