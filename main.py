@@ -62,6 +62,21 @@ class RefineWindow(ttk.Frame):
         self.refineLabel = ttk.Label(self, text="Further Refine")
         #Add label widgets
         self.refineLabel.grid(row=0, column=1)
+
+#Define hour refine window
+class HourWindow(ttk.Frame):
+    """Allows users to filter which hours the restaurant should be open"""
+    def __init__(self, parent):
+        """Sets up the window, widgets, and data."""
+        super().__init__(parent)
+        #Initialize the slider variables
+        startVar = tk.IntVar()
+        endVar = tk.IntVar()
+        #Create and add hour sliders
+        self.startScale = tk.Scale(self, variable = startVar, from_=1, to =24, orient="horizontal", label="Open From:") 
+        self.endScale = tk.Scale(self, variable = endVar, from_=1, to =24, orient="horizontal", label="Open To:") 
+        self.startScale.grid(row=0, column=0)
+        self.endScale.grid(row=0, column=1)
         
 #Define category refine window
 class CategoryWindow(ttk.Frame):
@@ -69,10 +84,11 @@ class CategoryWindow(ttk.Frame):
     def __init__(self, parent):
         """Sets up window, widgets, and data."""
         super().__init__(parent)
-        #Initialize the instance variables for the data#Create check buttons variable
+        #Create check buttons variable
         catCheckVar = tk.StringVar() #used to get the on/off value of the checkbutton
+        #Initialize the instance variables for the data
         self.categories = ["cat1", "cat2", "cat3", "cat4", "cat5", "cat6", "cat7", "cat8", "cat9"]
-        ##Create and add category labe
+        ##Create and add category label
         self.categoryLabel = ttk.Label(self, text="Categories:")
         self.categoryLabel.grid(row=0, column=0)
         #Method to create and add category refinement
@@ -101,11 +117,13 @@ class Main(tk.Tk):
         self.searchWindow = SearchWindow(self)
         self.filterWindow = FilterWindow(self)
         self.refineWindow = RefineWindow(self)
+        self.hourWindow = HourWindow(self)
         self.categoryWindow = CategoryWindow(self)
         #Add widgets
         self.searchWindow.pack()
         self.filterWindow.pack()
         self.refineWindow.pack()
+        self.hourWindow.pack()
         self.categoryWindow.pack()
         #Run the program
         self.mainloop()
