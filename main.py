@@ -49,6 +49,46 @@ class FilterWindow(ttk.Frame):
         self.entreeCheck.grid(row=4, sticky="W")
         self.happyHourCheck.grid(row=5, sticky="W")
 
+#Define refine filter window class
+class RefineWindow(ttk.Frame):
+    """Allows users to further refine the filter based on the categories picked in the filter window."""
+    def __init__(self, parent):
+        """Sets up window, widgets, and data."""
+        super().__init__(parent)
+        #Initialize the instance variables for the data
+        self.NEIGHBORHOODS = ["hood1", "hood2", "hood3"]
+        self.PRICE_RANGE = (5, 100)
+        #Create label widget
+        self.refineLabel = ttk.Label(self, text="Further Refine")
+        #Add label widgets
+        self.refineLabel.grid(row=0, column=1)
+        
+#Define category refine window
+class CategoryWindow(ttk.Frame):
+    '''Allows users to further refine filter based on the restaurant categories.'''
+    def __init__(self, parent):
+        """Sets up window, widgets, and data."""
+        super().__init__(parent)
+        #Initialize the instance variables for the data#Create check buttons variable
+        catCheckVar = tk.StringVar() #used to get the on/off value of the checkbutton
+        self.categories = ["cat1", "cat2", "cat3", "cat4", "cat5", "cat6", "cat7", "cat8", "cat9"]
+        ##Create and add category labe
+        self.categoryLabel = ttk.Label(self, text="Categories:")
+        self.categoryLabel.grid(row=0, column=0)
+        #Method to create and add category refinement
+        def addCategory(self):
+            row = 0
+            column = 1
+            for category in self.categories:
+                tk.Checkbutton(self, text=category, onvalue=category, variable=catCheckVar).grid(row=row, column=column, sticky="W")
+                if column == 1:
+                    column = 2
+                else:
+                    row += 1
+                    column = 1
+
+        addCategory(self)
+
 #Define main class to run the program
 class Main(tk.Tk):
     """Allows users to search for restaurants using search or filter."""
@@ -60,9 +100,13 @@ class Main(tk.Tk):
         #Create widgets
         self.searchWindow = SearchWindow(self)
         self.filterWindow = FilterWindow(self)
+        self.refineWindow = RefineWindow(self)
+        self.categoryWindow = CategoryWindow(self)
         #Add widgets
         self.searchWindow.pack()
         self.filterWindow.pack()
+        self.refineWindow.pack()
+        self.categoryWindow.pack()
         #Run the program
         self.mainloop()
 
