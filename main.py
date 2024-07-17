@@ -48,6 +48,12 @@ class FilterWindow(ttk.Frame):
         self.neighborhoodCheck.grid(row=3, sticky="W")
         self.entreeCheck.grid(row=4, sticky="W")
         self.happyHourCheck.grid(row=5, sticky="W")
+        #Create and add filter button
+        self.filterButton = ttk.Button(self, text="Filter", command=lambda :filterCommand(self))
+        self.filterButton.grid(row=6, column=0)
+        #Create command method for info button
+        def filterCommand(self):
+            return
 
 #Define refine filter window class
 class RefineWindow(ttk.Frame):
@@ -206,25 +212,25 @@ class Main(tk.Tk):
         self.title("GLUTEN FREE AND VEGAN")
         self.minsize(700, 400)
         #Create widgets
-        #self.searchWindow = SearchWindow(self)
-        #self.filterWindow = FilterWindow(self)
+        self.searchWindow = SearchWindow(self)
+        self.filterWindow = FilterWindow(self)
         #self.refineWindow = RefineWindow(self)
         #self.hourWindow = HourWindow(self)
         #self.categoryWindow = CategoryWindow(self)
         #self.neighborhoodWindow = NeighborhoodWindow(self)
         #self.priceWindow = PriceWindow(self)
         #self.specialsWindow = SpecialsWindow(self)
-        self.resultsWindow = ResultsWindow(self)
+        #self.resultsWindow = ResultsWindow(self)
         #Add widgets
-        #self.searchWindow.pack()
-        #self.filterWindow.pack()
+        self.searchWindow.pack()
+        self.filterWindow.pack()
         #self.refineWindow.pack()
         #self.hourWindow.pack()
         #self.categoryWindow.pack()
         #self.neighborhoodWindow.pack()
         #self.priceWindow.pack()
         #self.specialsWindow.pack()
-        self.resultsWindow.pack()
+        #self.resultsWindow.pack()
         #Run the program
         self.mainloop()
 
