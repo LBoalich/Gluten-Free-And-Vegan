@@ -53,7 +53,27 @@ class FilterWindow(ttk.Frame):
         self.filterButton.grid(row=6, column=0)
         #Create command method for info button
         def filterCommand(self):
-            return
+            """Opens a new window that allows user to further refine the filter"""
+            #Create the new top level window
+            self.furtherRefineWindow = tk.Toplevel(self)
+            #Add title to new window
+            self.furtherRefineWindow.title("REFINE FILTER")
+            #Set size of new window
+            self.furtherRefineWindow.minsize(700, 400)
+            #Create the classes that allow refinement
+            self.refineWindow = RefineWindow(self.furtherRefineWindow)
+            self.hourWindow = HourWindow(self.furtherRefineWindow)
+            self.categoryWindow = CategoryWindow(self.furtherRefineWindow)
+            self.neighborhoodWindow = NeighborhoodWindow(self.furtherRefineWindow)
+            self.priceWindow = PriceWindow(self.furtherRefineWindow)
+            self.specialsWindow = SpecialsWindow(self.furtherRefineWindow)
+            #Add the classes
+            self.refineWindow.pack()
+            self.hourWindow.pack()
+            self.categoryWindow.pack()
+            self.neighborhoodWindow.pack()
+            self.priceWindow.pack()
+            self.specialsWindow.pack()
 
 #Define refine filter window class
 class RefineWindow(ttk.Frame):
@@ -66,7 +86,16 @@ class RefineWindow(ttk.Frame):
         self.refineButton.grid(row=0, column=1)
         #Create command method for info button
         def refineCommand(self):
-            return
+            """Opens a new window that allows user to view results that matched filter refinement."""
+            #Create the new top level window
+            self.finalResultsWindow = tk.Toplevel(self)
+            #Add title to new window
+            self.finalResultsWindow.title("RESULTS")
+            #Set size of new window
+            self.finalResultsWindow.minsize(700, 400)
+            #Create and add the results window
+            self.resultsWindow = ResultsWindow(self.finalResultsWindow)
+            self.resultsWindow.pack()
 
 #Define hour refine window
 class HourWindow(ttk.Frame):
@@ -211,25 +240,11 @@ class Main(tk.Tk):
         self.title("GLUTEN FREE AND VEGAN")
         self.minsize(700, 400)
         #Create widgets
-        #self.searchWindow = SearchWindow(self)
-        #self.filterWindow = FilterWindow(self)
-        self.refineWindow = RefineWindow(self)
-        self.hourWindow = HourWindow(self)
-        self.categoryWindow = CategoryWindow(self)
-        self.neighborhoodWindow = NeighborhoodWindow(self)
-        self.priceWindow = PriceWindow(self)
-        self.specialsWindow = SpecialsWindow(self)
-        #self.resultsWindow = ResultsWindow(self)
+        self.searchWindow = SearchWindow(self)
+        self.filterWindow = FilterWindow(self)
         #Add widgets
-        #self.searchWindow.pack()
-        #self.filterWindow.pack()
-        self.refineWindow.pack()
-        self.hourWindow.pack()
-        self.categoryWindow.pack()
-        self.neighborhoodWindow.pack()
-        self.priceWindow.pack()
-        self.specialsWindow.pack()
-        #self.resultsWindow.pack()
+        self.searchWindow.pack()
+        self.filterWindow.pack()
         #Run the program
         self.mainloop()
 
