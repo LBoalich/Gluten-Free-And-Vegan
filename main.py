@@ -61,13 +61,12 @@ class RefineWindow(ttk.Frame):
     def __init__(self, parent):
         """Sets up window, widgets, and data."""
         super().__init__(parent)
-        #Initialize the instance variables for the data
-        self.NEIGHBORHOODS = ["hood1", "hood2", "hood3"]
-        self.PRICE_RANGE = (5, 100)
-        #Create label widget
-        self.refineLabel = ttk.Label(self, text="Further Refine")
-        #Add label widgets
-        self.refineLabel.grid(row=0, column=1)
+        #Create and add filter button
+        self.refineButton = ttk.Button(self, text="Refine Filter", command=lambda :refineCommand(self))
+        self.refineButton.grid(row=0, column=1)
+        #Create command method for info button
+        def refineCommand(self):
+            return
 
 #Define hour refine window
 class HourWindow(ttk.Frame):
@@ -212,24 +211,24 @@ class Main(tk.Tk):
         self.title("GLUTEN FREE AND VEGAN")
         self.minsize(700, 400)
         #Create widgets
-        self.searchWindow = SearchWindow(self)
-        self.filterWindow = FilterWindow(self)
-        #self.refineWindow = RefineWindow(self)
-        #self.hourWindow = HourWindow(self)
-        #self.categoryWindow = CategoryWindow(self)
-        #self.neighborhoodWindow = NeighborhoodWindow(self)
-        #self.priceWindow = PriceWindow(self)
-        #self.specialsWindow = SpecialsWindow(self)
+        #self.searchWindow = SearchWindow(self)
+        #self.filterWindow = FilterWindow(self)
+        self.refineWindow = RefineWindow(self)
+        self.hourWindow = HourWindow(self)
+        self.categoryWindow = CategoryWindow(self)
+        self.neighborhoodWindow = NeighborhoodWindow(self)
+        self.priceWindow = PriceWindow(self)
+        self.specialsWindow = SpecialsWindow(self)
         #self.resultsWindow = ResultsWindow(self)
         #Add widgets
-        self.searchWindow.pack()
-        self.filterWindow.pack()
-        #self.refineWindow.pack()
-        #self.hourWindow.pack()
-        #self.categoryWindow.pack()
-        #self.neighborhoodWindow.pack()
-        #self.priceWindow.pack()
-        #self.specialsWindow.pack()
+        #self.searchWindow.pack()
+        #self.filterWindow.pack()
+        self.refineWindow.pack()
+        self.hourWindow.pack()
+        self.categoryWindow.pack()
+        self.neighborhoodWindow.pack()
+        self.priceWindow.pack()
+        self.specialsWindow.pack()
         #self.resultsWindow.pack()
         #Run the program
         self.mainloop()
