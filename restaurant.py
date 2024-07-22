@@ -72,11 +72,14 @@ class Restaurant():
     #Define module to turn military time to standard time
     def militaryToStandard(self, time):
         """Converts military time to standard time in string format."""
-        if time < 1300: #Represents am time
+        if time < 1200: #Represents am time
             stringTime = str(time)
             standardTime = stringTime[0:2] + ":" + stringTime[2:] + "am"
-        else: 
-            time -= 1200 #Represents pm time
+        else:  #Represents pm time
+            if time < 1300:
+                pass
+            else:
+                time -= 1200
             stringTime = str(time)
             if time < 1000:
                 standardTime = stringTime[0] + ":" + stringTime[1:] + "pm"
@@ -85,9 +88,9 @@ class Restaurant():
         return standardTime
 
 #Instantiate list that holds restaurants
-restaurantList = [{"name": "Sanctuary Bistro", "website": "www.sanctuarybistro.com","address": "6414 Rea Road C2 \nCharlotte, NC 28277", "phone": "(980)335-0908", "hours": {"Wednesday": [[1130, 1500], [1730, 2100]], "Thursday": [[1130, 1500], [1730, 2100]], "Friday": [[1130, 1500], [1730, 2100]], "Saturday": [[1000, 1500], [1730, 2100]]}, "category": "Vegan", "neighborhood": "Piper Glen", "price": [13, 22]}]
+restaurantList = [{"name": "Sanctuary Bistro", "website": "www.sanctuarybistro.com","address": "6414 Rea Road C2 \nCharlotte, NC 28277", "phone": "(980)335-0908", "hours": {"Wednesday": [[1130, 1500], [1730, 2100]], "Thursday": [[1130, 1500], [1730, 2100]], "Friday": [[1130, 1500], [1730, 2100]], "Saturday": [[1000, 1500], [1730, 2100]]}, "category": "Vegan", "neighborhood": "Piper Glen", "price": [13, 22], "specials": None}]
 
-#Define function that creates a list of restaurant objects
+#Define function that creates a list of restaurant objects for testing purposes.  Will be deleted.
 def main():
     """Creates a list of restaurant objects from a list of restaurant dictionaries."""
     restaurantObjects = []
@@ -100,10 +103,11 @@ def main():
         category = restaurant["category"]
         neighborhood = restaurant["neighborhood"]
         price = restaurant["price"]
-        restaurantObjects.append(Restaurant(name, website, address, phone, hours, category, neighborhood, price))
+        specials = restaurant["specials"]
+        restaurantObjects.append(Restaurant(name, website, address, phone, hours, category, neighborhood, price, specials))
     for restaurant in restaurantObjects:
         print(restaurant)
 
-#Runs program automatically when file is opened. For testing purposes.
+#Runs program automatically when file is opened. For testing purposes, will be deleted.
 if __name__ == "__main__":
     main()
