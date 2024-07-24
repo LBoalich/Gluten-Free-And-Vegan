@@ -29,7 +29,7 @@ class SearchWindow(ttk.Frame):
 #Define filter window class
 class FilterWindow(ttk.Frame):
     """Allows users to filter by selecting from the following categories: hours, category, neighborhood, entree price range, happy hour & specials."""
-    def __init__(self, parent):
+    def __init__(self, parent, controller):
         """Sets up window and widgets."""
         super().__init__(parent)
         #Create and add filter label to the window
@@ -49,53 +49,30 @@ class FilterWindow(ttk.Frame):
         self.entreeCheck.grid(row=4, sticky="W")
         self.happyHourCheck.grid(row=5, sticky="W")
         #Create and add filter button
-        self.filterButton = ttk.Button(self, text="Filter", command=lambda :filterCommand(self))
-        self.filterButton.grid(row=6, column=0)
-        #Create command method for info button
-        def filterCommand(self):
-            """Opens a new window that allows user to further refine the filter"""
-            #Create the new top level window
-            self.furtherRefineWindow = tk.Toplevel(self)
-            #Add title to new window
-            self.furtherRefineWindow.title("REFINE FILTER")
-            #Set size of new window
-            self.furtherRefineWindow.minsize(700, 400)
-            #Create the classes that allow refinement
-            self.refineWindow = RefineWindow(self.furtherRefineWindow)
-            self.hourWindow = HourWindow(self.furtherRefineWindow)
-            self.categoryWindow = CategoryWindow(self.furtherRefineWindow)
-            self.neighborhoodWindow = NeighborhoodWindow(self.furtherRefineWindow)
-            self.priceWindow = PriceWindow(self.furtherRefineWindow)
-            self.specialsWindow = SpecialsWindow(self.furtherRefineWindow)
-            #Add the classes
-            self.refineWindow.pack()
-            self.hourWindow.pack()
-            self.categoryWindow.pack()
-            self.neighborhoodWindow.pack()
-            self.priceWindow.pack()
-            self.specialsWindow.pack()
+        self.filterButton = ttk.Button(self, text="Filter", command=lambda :controller.setWindow("RefineWindow"))
+        self.filterButton.grid(row=6, column=0)        
 
 #Define refine filter window class
 class RefineWindow(ttk.Frame):
     """Allows users to further refine the filter based on the categories picked in the filter window."""
-    def __init__(self, parent):
+    def __init__(self, parent, controller):
         """Sets up window, widgets, and data."""
         super().__init__(parent)
         #Create and add filter button
-        self.refineButton = ttk.Button(self, text="Refine Filter", command=lambda :refineCommand(self))
+        self.refineButton = ttk.Button(self, text="Refine Filter", command=lambda : controller.setWindow("ResultsWindow"))
         self.refineButton.grid(row=0, column=1)
-        #Create command method for info button
-        def refineCommand(self):
-            """Opens a new window that allows user to view results that matched filter refinement."""
-            #Create the new top level window
-            self.finalResultsWindow = tk.Toplevel(self)
-            #Add title to new window
-            self.finalResultsWindow.title("RESULTS")
-            #Set size of new window
-            self.finalResultsWindow.minsize(700, 400)
-            #Create and add the results window
-            self.resultsWindow = ResultsWindow(self.finalResultsWindow)
-            self.resultsWindow.pack()
+        #Create the classes that allow refinement
+        self.hourWindow = HourWindow(self)
+        self.categoryWindow = CategoryWindow(self)
+        self.neighborhoodWindow = NeighborhoodWindow(self)
+        self.priceWindow = PriceWindow(self)
+        self.specialsWindow = SpecialsWindow(self)
+        #Add the classes
+        self.hourWindow.grid(row=2, column=0)
+        self.categoryWindow.grid(row=3, column=0)
+        self.neighborhoodWindow.grid(row=4, column=0)
+        self.priceWindow.grid(row=5, column=0)
+        self.specialsWindow.grid(row=6, column=0)
 
 #Define hour refine window
 class HourWindow(ttk.Frame):
@@ -201,7 +178,7 @@ class SpecialsWindow(ttk.Frame):
 #Define filter results window class
 class ResultsWindow(ttk.Frame):
     """Allows user to see results from filter and choose a restaurant to get more information"""
-    def __init__(self, parent):
+    def __init__(self, parent,controller):
         """Sets up the window, widgets, and data."""
         super().__init__(parent)
         #Initializes the results data
@@ -230,6 +207,20 @@ class ResultsWindow(ttk.Frame):
         #Create command method for info button
         def infoCommand(self):
             return
+        
+#Define home page
+class HomePage(ttk.Frame):
+    """Allows user to find a restaurant using search or filter."""
+    def __init__(self, parent, controller):
+        """Sets up the window using search window and filter window classes."""
+        super().__init__(parent)
+        self.controller = controller
+        #Create widgets
+        self.searchWindow = SearchWindow(self)
+        self.filterWindow = FilterWindow(self, controller)
+        #Add widgets
+        self.searchWindow.pack()
+        self.filterWindow.pack()
 
 #Define main class to run the program
 class Main(tk.Tk):
@@ -239,14 +230,26 @@ class Main(tk.Tk):
         super().__init__()
         self.title("GLUTEN FREE AND VEGAN")
         self.minsize(700, 400)
-        #Create widgets
-        self.searchWindow = SearchWindow(self)
-        self.filterWindow = FilterWindow(self)
-        #Add widgets
-        self.searchWindow.pack()
-        self.filterWindow.pack()
+        self.mainWindow = ttk.Frame(self)
+        self.mainWindow.pack(side="top", fill="both", expand = True)
+        self.mainWindow.grid_rowconfigure(0, weight=1)
+        self.mainWindow.grid_columnconfigure(0, weight=1)
+        self.windows = {}
+        #Fill the window dictionary
+        for window in (HomePage, RefineWindow, ResultsWindow):
+            windowName = window.__name__
+            frame = window(self.mainWindow, controller=self)
+            self.windows[windowName] = frame
+            frame.grid(row=0, column=0, sticky="nsew")
+        #Set the home page as the current window
+        self.setWindow("HomePage")
         #Run the program
         self.mainloop()
+    #Define module to set the current window shown
+    def setWindow(self, window):
+        currentWindow = self.windows[window]
+        currentWindow.tkraise()
+    
 
 #Automatically run program
 if __name__ == "__main__":
