@@ -4,9 +4,10 @@ from tkinter import ttk
 #Define neighborhood refine window
 class NeighborhoodWindow(ttk.Frame):
     '''Allows users to further refine filter based on neighborhood.'''
-    def __init__(self, parent):
+    def __init__(self, parent, controller):
         """Sets up window, widgets, and data."""
         super().__init__(parent)
+        self.controller = controller
         #Set up grid
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure((0, 1, 2), weight=1)

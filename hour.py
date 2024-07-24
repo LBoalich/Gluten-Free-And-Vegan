@@ -5,9 +5,10 @@ from tkinter import ttk
 #Define hour refine window
 class HourWindow(ttk.Frame):
     """Allows users to filter which hours the restaurant should be open"""
-    def __init__(self, parent):
+    def __init__(self, parent, controller):
         """Sets up the window, widgets, and data."""
         super().__init__(parent)
+        self.controller = controller
         #Set up grid
         self.rowconfigure(0, weight=1)
         self.columnconfigure((0, 1), weight=1)

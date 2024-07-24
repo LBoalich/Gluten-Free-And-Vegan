@@ -4,9 +4,10 @@ from tkinter import ttk
 #Define entree price range refine window
 class PriceWindow(ttk.Frame):
     """Allows users to filter the price range of an entree"""
-    def __init__(self, parent):
+    def __init__(self, parent, controller):
         """Sets up the window, widgets, and data."""
         super().__init__(parent)
+        self.controller = controller
         #Set up grid
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure((0, 1), weight=1)

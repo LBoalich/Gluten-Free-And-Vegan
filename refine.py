@@ -13,6 +13,7 @@ class RefineWindow(ttk.Frame):
     def __init__(self, parent, controller):
         """Sets up window, widgets, and data."""
         super().__init__(parent)
+        self.controller = controller
         #Set up grid
         self.grid_rowconfigure((0, 1, 2, 3, 4, 5, 6, 7), weight=1)
         self.grid_columnconfigure(0, weight=1)
@@ -20,11 +21,11 @@ class RefineWindow(ttk.Frame):
         self.refineLabel = ttk.Label(self, text="Refine Filter")
         self.refineLabel.grid(row=0, column=0)
         #Create the classes that allow refinement
-        self.hourWindow = HourWindow(self)
-        self.categoryWindow = CategoryWindow(self)
-        self.neighborhoodWindow = NeighborhoodWindow(self)
-        self.priceWindow = PriceWindow(self)
-        self.specialsWindow = SpecialsWindow(self)
+        self.hourWindow = HourWindow(self, self.controller)
+        self.categoryWindow = CategoryWindow(self, self.controller)
+        self.neighborhoodWindow = NeighborhoodWindow(self, self.controller)
+        self.priceWindow = PriceWindow(self, self.controller)
+        self.specialsWindow = SpecialsWindow(self, self.controller)
         #Add the classes
         self.hourWindow.grid(row=1, column=0)
         self.categoryWindow.grid(row=2, column=0)
@@ -32,5 +33,5 @@ class RefineWindow(ttk.Frame):
         self.priceWindow.grid(row=4, column=0)
         self.specialsWindow.grid(row=5, column=0)
         #Create and add filter button
-        self.refineButton = ttk.Button(self, text="Refine Filter", command=lambda : controller.setWindow("ResultsWindow"))
+        self.refineButton = ttk.Button(self, text="Refine Filter", command=lambda : self.controller.setWindow("ResultsWindow"))
         self.refineButton.grid(row=6, column=0)

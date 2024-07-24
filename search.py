@@ -5,9 +5,10 @@ from tkinter import ttk
 #Define search window class
 class SearchWindow(ttk.Frame):
     """"Allows user to search for restaurants."""
-    def __init__(self, parent):
+    def __init__(self, parent, controller):
         """Sets up window and widgets."""
         super().__init__(parent)
+        self.controller = controller
         #Set up grid
         self.rowconfigure(0, weight=1)
         self.columnconfigure((0, 1, 2), weight=1, uniform=True)
