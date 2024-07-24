@@ -11,7 +11,10 @@ import tkinter as tk
 from tkinter import ttk
 from refine import RefineWindow
 from results import ResultsWindow
-from home import HomePage      
+from home import HomePage  
+from restaurant import Restaurant
+from restaurants import Restaurants  
+from restaurantList import restaurantList  
 
 #Define main class to run the program
 class Main(tk.Tk):

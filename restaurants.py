@@ -88,9 +88,6 @@ class Restaurants():
                 restaurantList.append(restaurant)
         return restaurantList
 
-#Instantiate list that holds restaurants
-restaurantList = [{"name": "Sanctuary Bistro", "website": "www.sanctuarybistro.com","address": "6414 Rea Road C2 \nCharlotte, NC 28277", "phone": "(980)335-0908", "hours": {"Wednesday": [[1130, 1500], [1730, 2100]], "Thursday": [[1130, 1500], [1730, 2100]], "Friday": [[1130, 1500], [1730, 2100]], "Saturday": [[1000, 1500], [1730, 2100]]}, "category": "Vegan", "neighborhood": "Piper Glen", "price": [13, 22], "specials": None}, {"name": "Oh My Soul", "website": "https://ohmysoulusa.com","address": "3046 N Davidson St.\nCharlotte, NC 28205", "phone": "(704)891-4664", "hours": {"Tuesday": [[1200, 1600], [1700, 2100]], "Wednesday": [[1200, 1600], [1700, 2100]], "Thursday": [[1200, 1600], [1700, 2100]], "Friday": [[1200, 1600], [1700, 2200]], "Saturday": [[1000, 2200]], "Sunday": [[1000, 1630]]}, "category": "Vegan", "neighborhood": "Noda", "price": [15, 25], "specials": None}]
-
 #Define function that creates restaurants object for testing purposes.  Will be deleted.
 def main():
     """Create restaurants object from a list of restaurant dictionaries."""
