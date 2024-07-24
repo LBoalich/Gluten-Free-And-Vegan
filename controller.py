@@ -45,3 +45,7 @@ class Controller():
     def getCategoryList(self):
         categories = self.restaurants.getCategories()
         return categories
+    #Define module to get list of neighborhoods
+    def getNeighborhoodList(self):
+        neighborhoods = self.restaurants.getNeighborhoods()
+        return neighborhoods

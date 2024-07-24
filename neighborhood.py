@@ -14,7 +14,7 @@ class NeighborhoodWindow(ttk.Frame):
         #Create check buttons variable
         hoodCheckVar = tk.StringVar() #used to get the on/off value of the checkbutton
         #Initialize the instance variables for the data
-        self.hoods = ["hood1", "hood2", "hood3", "hood4", "hood5", "hood6", "hood7", "hood8", "hood9"]
+        self.hoods = self.controller.getNeighborhoodList()
         ##Create and add category label
         self.hoodLabel = ttk.Label(self, text="Neighborhoods:")
         self.hoodLabel.grid(row=0, column=0)
