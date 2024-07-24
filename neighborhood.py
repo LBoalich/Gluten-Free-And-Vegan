@@ -7,6 +7,9 @@ class NeighborhoodWindow(ttk.Frame):
     def __init__(self, parent):
         """Sets up window, widgets, and data."""
         super().__init__(parent)
+        #Set up grid
+        self.grid_rowconfigure(0, weight=1)
+        self.grid_columnconfigure((0, 1, 2), weight=1)
         #Create check buttons variable
         hoodCheckVar = tk.StringVar() #used to get the on/off value of the checkbutton
         #Initialize the instance variables for the data
@@ -15,7 +18,7 @@ class NeighborhoodWindow(ttk.Frame):
         self.hoodLabel = ttk.Label(self, text="Neighborhoods:")
         self.hoodLabel.grid(row=0, column=0)
         #Method to create and add category refinement
-        def addHoods(self):
+        def addNeighborhoods(self):
             row = 0
             column = 1
             for hood in self.hoods:
@@ -26,4 +29,4 @@ class NeighborhoodWindow(ttk.Frame):
                     row += 1
                     column = 1
 
-        addHoods(self)
+        addNeighborhoods(self)

@@ -7,6 +7,9 @@ class SpecialsWindow(ttk.Frame):
     def __init__(self, parent):
         """Sets up window, widgets, and data."""
         super().__init__(parent)
+        #Set up grid
+        self.grid_rowconfigure(0, weight=1)
+        self.grid_columnconfigure(0, weight=1)
         #Create and add specials checkbutton
         self.specialCheck = tk.IntVar()
         self.specialsCheckbutton = tk.Checkbutton(self, text="Has Happy Hour or Specials", variable=self.specialCheck)

@@ -7,6 +7,9 @@ class CategoryWindow(ttk.Frame):
     def __init__(self, parent):
         """Sets up window, widgets, and data."""
         super().__init__(parent)
+        #Set up grid
+        self.grid_rowconfigure(0, weight=1)
+        self.grid_columnconfigure((0, 1, 2), weight=1)
         #Create check buttons variable
         catCheckVar = tk.StringVar() #used to get the on/off value of the checkbutton
         #Initialize the instance variables for the data

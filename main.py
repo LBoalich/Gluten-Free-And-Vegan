@@ -20,7 +20,7 @@ class Main(tk.Tk):
         """Sets up the main window and widgets"""
         super().__init__()
         self.title("GLUTEN FREE AND VEGAN")
-        self.geometry("700x400")
+        self.geometry("1000x700")
         self.mainWindow = ttk.Frame(self)
         self.mainWindow.pack(side="top", fill="both", expand = True)
         self.mainWindow.grid_rowconfigure(0, weight=1)

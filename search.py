@@ -8,12 +8,14 @@ class SearchWindow(ttk.Frame):
     def __init__(self, parent):
         """Sets up window and widgets."""
         super().__init__(parent)
+        #Set up grid
+        self.rowconfigure(0, weight=1)
+        self.columnconfigure((0, 1, 2), weight=1, uniform=True)
         #Create widgets
         self.searchLabel = ttk.Label(self, text="Restaurant Name:")
         self.searchEntry = ttk.Entry(self)
         self.searchButton = ttk.Button(self, text="Search")
         #Add widgets to window
-        self.columnconfigure((0, 1, 2), weight=1, uniform=True)
         self.searchLabel.grid(row=0, column=0)
         self.searchEntry.grid(row=0, column=1)
         self.searchButton.grid(row=0, column=2)
