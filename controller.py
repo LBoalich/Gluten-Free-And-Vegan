@@ -18,6 +18,12 @@ class Controller():
         self.root = root
         self.restaurants = Restaurants(restaurantList)
         self.windows = {}
+        #Create filter category checkbox attributes
+        self.hoursVar = 0
+        self.categoryVar = 0
+        self.neighborhoodVar = 0
+        self.priceVar = 0
+        self.specialsVar = 0
         #Fill the window dictionary
         for window in (HomePage, RefineWindow, ResultsWindow):
             windowName = window.__name__
@@ -49,3 +55,27 @@ class Controller():
     def getNeighborhoodList(self):
         neighborhoods = self.restaurants.getNeighborhoods()
         return neighborhoods
+    #Add setters for the filter checkbutton variables
+    def setHoursVar(self, var):
+        self.hoursVar = var
+    def setCategoryVar(self, var):
+        self.categoryVar = var
+    def setNeighborhoodVar(self, var):
+        self.neighborhoodVar = var
+    def setPriceVar(self, var):
+        self.priceVar = var
+    def setSpecialsVar(self, var):
+        self.specialsVar = var
+    #Define module that adds the checked filter categories to the refine window
+    def addFilterCategoriesToRefine(self):
+        if self.hoursVar == 1:
+            self.refine.hourWindow.grid(row=1, column=0)
+        if self.categoryVar == 1:
+            self.refine.categoryWindow.grid(row=2, column=0)
+        if self.neighborhoodVar == 1:
+            self.refine.neighborhoodWindow.grid(row=3, column=0)
+        if self.priceVar == 1:
+            self.refine.priceWindow.grid(row=4, column=0)
+        if self.specialsVar == 1:
+            self.refine.specialsWindow.grid(row=5, column=0)
+     

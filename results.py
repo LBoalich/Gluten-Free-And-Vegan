@@ -8,6 +8,7 @@ class ResultsWindow(ttk.Frame):
     def __init__(self, parent, controller):
         """Sets up the window, widgets, and data."""
         super().__init__(parent)
+        self.controller = controller
         #Set up grid
         self.grid_rowconfigure((0, 2), weight=1)
         self.grid_rowconfigure(1, weight=3)

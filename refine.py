@@ -26,12 +26,6 @@ class RefineWindow(ttk.Frame):
         self.neighborhoodWindow = NeighborhoodWindow(self, self.controller)
         self.priceWindow = PriceWindow(self, self.controller)
         self.specialsWindow = SpecialsWindow(self, self.controller)
-        #Add the classes
-        self.hourWindow.grid(row=1, column=0)
-        self.categoryWindow.grid(row=2, column=0)
-        self.neighborhoodWindow.grid(row=3, column=0)
-        self.priceWindow.grid(row=4, column=0)
-        self.specialsWindow.grid(row=5, column=0)
         #Create and add filter button
         self.refineButton = ttk.Button(self, text="Refine Filter", command=lambda : self.controller.setWindow("ResultsWindow"))
         self.refineButton.grid(row=6, column=0)
