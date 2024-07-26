@@ -27,8 +27,11 @@ class Controller():
         #Create filter hour scale variable attributes
         self.minHour = 0
         self.maxHour = 24
-        #Create category checkbutton dictionary to hold variable values in refine window
+        #Create category checkbutton dictionary to hold variable values from refine window
         self.refineCategoryVarDictonary = {}
+        #Create filter entree price range scale attributes
+        self.minPrice = 5
+        self.maxPrice = 200
         #Create results list
         self.finalResults = []
         #Fill the window dictionary
@@ -111,9 +114,16 @@ class Controller():
             categoryMatches = self.restaurants.categoryMatch(checkedCategories)
         else:
             categoryMatches = restaurantList
+        #If entree price range selected in filter, get the min and max price and set to the controller attributes, find matches and add to price list.  Otherwise set price matches to all restaurants.
+        if self.priceVar == 1:
+            self.minPrice = self.refine.priceWindow.lowScale.get()
+            self.maxPrice = self.refine.priceWindow.highScale.get()
+            priceMatch = self.restaurants.priceRangeMatch(self.minPrice, self.maxPrice)
+        else:
+            priceMatch = restaurantList
         #Set the final results list based on matches
         for restaurant in restaurantList:
-            if (restaurant in hourMatches) and (restaurant in categoryMatches):
+            if (restaurant in hourMatches) and (restaurant in categoryMatches) and (restaurant in priceMatch):
                 self.finalResults.append(restaurant)
         #Add the results to the results window
         self.addResultsRadiobuttons()

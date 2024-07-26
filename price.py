@@ -11,12 +11,9 @@ class PriceWindow(ttk.Frame):
         #Set up grid
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure((0, 1), weight=1)
-        #Initialize the slider variables
-        self.lowVar = tk.IntVar()
-        self.highVar = tk.IntVar()
         #Create price scales
-        self.lowScale = tk.Scale(self, variable = self.lowVar, from_=5, to =200, orient="horizontal", label="Low Entree Price:", length=200) 
-        self.highScale = tk.Scale(self, variable = self.highVar, from_=5, to =200, orient="horizontal", label="High Entree Price:", length=200)
+        self.lowScale = tk.Scale(self, from_=5, to =200, orient="horizontal", label="Low Entree Price:", length=200) 
+        self.highScale = tk.Scale(self, from_=5, to =200, orient="horizontal", label="High Entree Price:", length=200)
         #Set high scale initial value to 200
         self.highScale.set(200)
         #Add price scales 

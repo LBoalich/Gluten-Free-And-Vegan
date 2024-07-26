@@ -80,7 +80,7 @@ class Restaurants():
         restaurantList = []
         for restaurant in self.restaurants:
             priceRange = restaurant.getPrice()
-            if min >= priceRange[0] and max <= priceRange[1]:
+            if min <= priceRange[0] and max >= priceRange[1]:
                 restaurantList.append(restaurant)
         return restaurantList
     def hasSpecials(self):
