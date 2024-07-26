@@ -17,7 +17,7 @@ class ResultsWindow(ttk.Frame):
         self.resultsLabel = ttk.Label(self, text="Results")
         self.resultsLabel.grid(row=0, column=0)
         #Create and add checkbuttons winodw
-        self.resultsCheckbuttons = ResultsCheckbuttonsWindow(self)
+        self.resultsCheckbuttons = ResultsCheckbuttonsWindow(self, self.controller)
         self.resultsCheckbuttons.grid(row=1, column=0)  
         #Create and add see more info button
         self.infoButton = ttk.Button(self, text="See More Info", command=lambda :infoCommand(self))

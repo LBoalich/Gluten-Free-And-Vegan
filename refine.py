@@ -27,5 +27,5 @@ class RefineWindow(ttk.Frame):
         self.priceWindow = PriceWindow(self, self.controller)
         self.specialsWindow = SpecialsWindow(self, self.controller)
         #Create and add filter button
-        self.refineButton = ttk.Button(self, text="Refine Filter", command=lambda : self.controller.setWindow("ResultsWindow"))
+        self.refineButton = ttk.Button(self, text="Refine Filter", command=lambda : [self.controller.setWindow("ResultsWindow"), self.controller.setFinalResults()])
         self.refineButton.grid(row=6, column=0)

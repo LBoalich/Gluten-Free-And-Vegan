@@ -22,11 +22,11 @@ class FilterWindow(ttk.Frame):
         self.entreeVar = tk.IntVar() 
         self.happyHourVar = tk.IntVar() 
         #Create the checkbuttons
-        self.hoursCheck = tk.Checkbutton(self, text="Hours", variable=self.hoursVar, onvalue=1, offvalue=0, command=lambda : self.controller.setHoursVar(self.hoursVar.get()))
-        self.categoryCheck = tk.Checkbutton(self, text="Category", variable=self.categoryVar, onvalue=1, offvalue=0, command=lambda : self.controller.setCategoryVar(self.categoryVar.get()))
-        self.neighborhoodCheck = tk.Checkbutton(self, text="Neighborhood", variable=self.neighborhoodVar, onvalue=1, offvalue=0, command=lambda : self.controller.setNeighborhoodVar(self.neighborhoodVar.get()))
-        self.entreeCheck = tk.Checkbutton(self, text="Entree Price Range", variable=self.entreeVar, onvalue=1, offvalue=0, command=lambda : self.controller.setPriceVar(self.entreeVar.get()))
-        self.happyHourCheck = tk.Checkbutton(self, text="Happy Hour & Specials", variable=self.happyHourVar, onvalue=1, offvalue=0, command=lambda : self.controller.setSpecialsVar(self.happyHourVar.get()))
+        self.hoursCheck = ttk.Checkbutton(self, text="Hours", variable=self.hoursVar, onvalue=1, offvalue=0, command=lambda : self.controller.setHoursVar(self.hoursVar.get()))
+        self.categoryCheck = ttk.Checkbutton(self, text="Category", variable=self.categoryVar, onvalue=1, offvalue=0, command=lambda : self.controller.setCategoryVar(self.categoryVar.get()))
+        self.neighborhoodCheck = ttk.Checkbutton(self, text="Neighborhood", variable=self.neighborhoodVar, onvalue=1, offvalue=0, command=lambda : self.controller.setNeighborhoodVar(self.neighborhoodVar.get()))
+        self.entreeCheck = ttk.Checkbutton(self, text="Entree Price Range", variable=self.entreeVar, onvalue=1, offvalue=0, command=lambda : self.controller.setPriceVar(self.entreeVar.get()))
+        self.happyHourCheck = ttk.Checkbutton(self, text="Happy Hour & Specials", variable=self.happyHourVar, onvalue=1, offvalue=0, command=lambda : self.controller.setSpecialsVar(self.happyHourVar.get()))
         #Add checkbuttons
         self.hoursCheck.grid(row=1, column=0, sticky="W")
         self.categoryCheck.grid(row=2, column=0, sticky="W")

@@ -9,6 +9,7 @@ from category import CategoryWindow
 from neighborhood import NeighborhoodWindow
 from price import PriceWindow
 from specials import SpecialsWindow
+from resultsCheckbuttons import ResultsCheckbuttonsWindow
 
 #Create controlller class
 class Controller():
@@ -24,6 +25,10 @@ class Controller():
         self.neighborhoodVar = 0
         self.priceVar = 0
         self.specialsVar = 0
+        #Create category checkbutton dictionary to hold variable values in refine window
+        self.refineCategoryVarDictonary = {}
+        #Create results list
+        self.finalResults = []
         #Fill the window dictionary
         for window in (HomePage, RefineWindow, ResultsWindow):
             windowName = window.__name__
@@ -43,10 +48,6 @@ class Controller():
         self.specials = SpecialsWindow(self.refine, self)
         #Set the home page as the current window
         self.setWindow("HomePage")
-    #Define module to set the current window shown
-    def setWindow(self, window):
-        currentWindow = self.windows[window]
-        currentWindow.tkraise()
     #Define module to get list of categories
     def getCategoryList(self):
         categories = self.restaurants.getCategories()
@@ -55,7 +56,21 @@ class Controller():
     def getNeighborhoodList(self):
         neighborhoods = self.restaurants.getNeighborhoods()
         return neighborhoods
-    #Add setters for the filter checkbutton variables
+    #Define module to get the checked categories in refine window
+    def getRefineCategoryChecked(self):
+        refineCategoryChecked = []
+        for key, value in self.refineCategoryVarDictonary.items():
+            if value == 1:
+                refineCategoryChecked.append(key)
+        return refineCategoryChecked
+    #Define module to get the final results
+    def getFinalResults(self):
+        return self.finalResults
+    #Define module to set the current window shown
+    def setWindow(self, window):
+        currentWindow = self.windows[window]
+        currentWindow.tkraise()
+    #Define setters for the filter checkbutton variables
     def setHoursVar(self, var):
         self.hoursVar = var
     def setCategoryVar(self, var):
@@ -66,6 +81,16 @@ class Controller():
         self.priceVar = var
     def setSpecialsVar(self, var):
         self.specialsVar = var
+    #Define setter for the refine category variable dictionary
+    def setRefineCategoryVar(self, key, value):
+        self.refineCategoryVarDictonary[key] = value
+    #Define setter for the final results list
+    def setFinalResults(self):
+        self.finalResults = []
+        checkedCategories = self.getRefineCategoryChecked()
+        categoryMatches = self.restaurants.categoryMatch(checkedCategories)
+        self.finalResults = categoryMatches
+        self.addResultsCheckbuttonsToResults()
     #Define module that adds the checked filter categories to the refine window
     def addFilterCategoriesToRefine(self):
         if self.hoursVar == 1:
@@ -78,4 +103,7 @@ class Controller():
             self.refine.priceWindow.grid(row=4, column=0)
         if self.specialsVar == 1:
             self.refine.specialsWindow.grid(row=5, column=0)
-     
+    #Define module to add results checkbuttons on refine filter button click
+    #Create and add checkbuttons winodw
+    def addResultsCheckbuttonsToResults(self):
+        self.results.resultsCheckbuttons.addResults()
