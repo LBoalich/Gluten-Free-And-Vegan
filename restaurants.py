@@ -1,6 +1,5 @@
 #Imports
 from restaurant import Restaurant
-from restaurantList import restaurantList
 
 #Create Restaurants class
 class Restaurants():
@@ -58,6 +57,9 @@ class Restaurants():
     def getMaxPrice(self):
         """Returns the highest entree price."""
         return self.maxPrice
+    def getRestuarants(self):
+        """Returns the restuaruant list."""
+        return self.restaurants
     #Define filter modules
     def categoryMatch(self, filterCategories):
         """Returns the restaurant objects that match the filter categories picked by the user."""
@@ -99,16 +101,18 @@ class Restaurants():
                         if restaurant not in restaurantList and hourList[0] <= minHour and hourList[1] >= maxHour:
                             restaurantList.append(restaurant)
         return restaurantList
-
+'''
 #Define function that creates restaurants object for testing purposes.  Will be deleted.
 def main():
     """Create restaurants object from a list of restaurant dictionaries."""
     restaurants = Restaurants(restaurantList)
     hourMatch = restaurants.hoursMatch(1130, 1500)
-    print(hourMatch)
+    for restaurant in hourMatch:
+        print(restaurant)
 
 
 
 #Runs program automatically when file is opened. For testing purposes, will be deleted.
 if __name__ == "__main__":
     main()
+'''

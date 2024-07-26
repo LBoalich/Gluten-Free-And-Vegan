@@ -88,12 +88,34 @@ class Controller():
         self.refineCategoryVarDictonary[key] = value
     #Define setter for the final results list
     def setFinalResults(self):
+        #Reset final results to empty list
         self.finalResults = []
-        self.minHour = self.refine.hourWindow.startVar.get()
-        self.maxHour = self.refine.hourWindow.endVar.get()
-        checkedCategories = self.getRefineCategoryChecked()
-        categoryMatches = self.restaurants.categoryMatch(checkedCategories)
-        self.finalResults = categoryMatches
+        #Get the list of restaurants
+        restaurantList = self.restaurants.getRestuarants()
+        #If hour was selected in filter, set the min and max hour attributes to data selected in refine window and get matches.  Otherwise set hour matches list to all restaurants. 
+        if self.hoursVar == 1:
+            minScale = self.refine.hourWindow.startScale.get()
+            maxScale = self.refine.hourWindow.endScale.get()
+            stringMinHour = str(minScale) + "00"
+            intMinHour = int(stringMinHour)
+            stringMaxHour = str(maxScale) + "00"
+            intMaxHour = int(stringMaxHour)
+            self.minHour = intMinHour
+            self.maxHour = intMaxHour
+            hourMatches = self.restaurants.hoursMatch(self.minHour, self.maxHour)
+        else: 
+            hourMatches = restaurantList
+        #If cateogry was selected in filter, get the categories chosen and mathching restaurants.  Otherwise set category matches to all restaurants.
+        if self.categoryVar == 1:
+            checkedCategories = self.getRefineCategoryChecked()
+            categoryMatches = self.restaurants.categoryMatch(checkedCategories)
+        else:
+            categoryMatches = restaurantList
+        #Set the final results list based on matches
+        for restaurant in restaurantList:
+            if (restaurant in hourMatches) and (restaurant in categoryMatches):
+                self.finalResults.append(restaurant)
+        #Add the results to the results window
         self.addResultsRadiobuttons()
     #Define module that adds the checked filter categories to the refine window
     def addFilterCategoriesToRefine(self):

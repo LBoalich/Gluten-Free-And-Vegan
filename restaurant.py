@@ -56,11 +56,14 @@ class Restaurant():
         """Returns the string representation of hours."""
         stringHours = ""
         for (key, value) in self.hours.items():
-            stringHours += ("\n" + key + ":") 
-            for openClose in value:
-                open = self.militaryToStandard(openClose[0])
-                close = self.militaryToStandard(openClose[1])
-                stringHours += ("\n" + open + " to " + close)
+            stringHours += ("\n" + key + ":")
+            if value == ["Closed"]:
+                stringHours += "\nClosed"
+            else:
+                for openClose in value:
+                    open = self.militaryToStandard(openClose[0])
+                    close = self.militaryToStandard(openClose[1])
+                    stringHours += ("\n" + open + " to " + close)
         return stringHours
     def stringPrice(self):
         return ("$" + str(self.price[0]) + " to $" + str(self.price[1]))
@@ -87,9 +90,7 @@ class Restaurant():
                 standardTime = stringTime[0:2] + ":" + stringTime[2:] + "pm"
         return standardTime
 
-#Instantiate list that holds restaurants
-restaurantList = [{"name": "Sanctuary Bistro", "website": "www.sanctuarybistro.com","address": "6414 Rea Road C2 \nCharlotte, NC 28277", "phone": "(980)335-0908", "hours": {"Wednesday": [[1130, 1500], [1730, 2100]], "Thursday": [[1130, 1500], [1730, 2100]], "Friday": [[1130, 1500], [1730, 2100]], "Saturday": [[1000, 1500], [1730, 2100]]}, "category": "Vegan", "neighborhood": "Piper Glen", "price": [13, 22], "specials": None}]
-
+'''
 #Define function that creates a list of restaurant objects for testing purposes.  Will be deleted.
 def main():
     """Creates a list of restaurant objects from a list of restaurant dictionaries."""
@@ -111,3 +112,4 @@ def main():
 #Runs program automatically when file is opened. For testing purposes, will be deleted.
 if __name__ == "__main__":
     main()
+'''
