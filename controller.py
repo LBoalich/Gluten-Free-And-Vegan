@@ -24,6 +24,9 @@ class Controller():
         self.neighborhoodVar = 0
         self.priceVar = 0
         self.specialsVar = 0
+        #Create filter hour scale variable attributes
+        self.minHour = 0
+        self.maxHour = 24
         #Create category checkbutton dictionary to hold variable values in refine window
         self.refineCategoryVarDictonary = {}
         #Create results list
@@ -86,6 +89,8 @@ class Controller():
     #Define setter for the final results list
     def setFinalResults(self):
         self.finalResults = []
+        self.minHour = self.refine.hourWindow.startVar.get()
+        self.maxHour = self.refine.hourWindow.endVar.get()
         checkedCategories = self.getRefineCategoryChecked()
         categoryMatches = self.restaurants.categoryMatch(checkedCategories)
         self.finalResults = categoryMatches

@@ -1,5 +1,6 @@
 #Imports
 from restaurant import Restaurant
+from restaurantList import restaurantList
 
 #Create Restaurants class
 class Restaurants():
@@ -87,19 +88,25 @@ class Restaurants():
             if restaurant.getSpecials() != None:
                 restaurantList.append(restaurant)
         return restaurantList
+    def hoursMatch(self, minHour, maxHour):
+        """Return the restaurants that are open during the given time frame."""
+        restaurantList = []
+        for restaurant in self.restaurants:
+            hours = restaurant.getHours()
+            for value in hours.values():
+                for hourList in value:
+                    if hourList != "Closed":
+                        if restaurant not in restaurantList and hourList[0] <= minHour and hourList[1] >= maxHour:
+                            restaurantList.append(restaurant)
+        return restaurantList
 
 #Define function that creates restaurants object for testing purposes.  Will be deleted.
 def main():
     """Create restaurants object from a list of restaurant dictionaries."""
     restaurants = Restaurants(restaurantList)
-    print(restaurants.getCategories())
-    print(restaurants.getNeighborhoods())
-    print(restaurants.getMinPrice())
-    print(restaurants.getMaxPrice())
-    print(restaurants.categoryMatch("Vegan"))
-    print(restaurants.hasSpecials())
-    print(restaurants.neighborhoodMatch("Noda"))
-    print(restaurants.priceRangeMatch(15, 24))
+    hourMatch = restaurants.hoursMatch(1130, 1500)
+    print(hourMatch)
+
 
 
 #Runs program automatically when file is opened. For testing purposes, will be deleted.
