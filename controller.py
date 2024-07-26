@@ -9,7 +9,6 @@ from category import CategoryWindow
 from neighborhood import NeighborhoodWindow
 from price import PriceWindow
 from specials import SpecialsWindow
-from resultsCheckbuttons import ResultsCheckbuttonsWindow
 
 #Create controlller class
 class Controller():
@@ -90,7 +89,7 @@ class Controller():
         checkedCategories = self.getRefineCategoryChecked()
         categoryMatches = self.restaurants.categoryMatch(checkedCategories)
         self.finalResults = categoryMatches
-        self.addResultsCheckbuttonsToResults()
+        self.addResultsRadiobuttons()
     #Define module that adds the checked filter categories to the refine window
     def addFilterCategoriesToRefine(self):
         if self.hoursVar == 1:
@@ -105,5 +104,7 @@ class Controller():
             self.refine.specialsWindow.grid(row=5, column=0)
     #Define module to add results checkbuttons on refine filter button click
     #Create and add checkbuttons winodw
-    def addResultsCheckbuttonsToResults(self):
-        self.results.resultsCheckbuttons.addResults()
+    def addResultsRadiobuttons(self):
+        self.results.resultsRadiobuttons.addResults()
+        if len(self.finalResults) > 0:
+            self.results.noResultsLabel.destroy()

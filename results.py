@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
-from resultsCheckbuttons import ResultsCheckbuttonsWindow
+from resultsRadiobuttons import ResultsRadiobuttonsWindow
 
 #Define filter results window class
 class ResultsWindow(ttk.Frame):
@@ -17,8 +17,11 @@ class ResultsWindow(ttk.Frame):
         self.resultsLabel = ttk.Label(self, text="Results")
         self.resultsLabel.grid(row=0, column=0)
         #Create and add checkbuttons winodw
-        self.resultsCheckbuttons = ResultsCheckbuttonsWindow(self, self.controller)
-        self.resultsCheckbuttons.grid(row=1, column=0)  
+        self.resultsRadiobuttons = ResultsRadiobuttonsWindow(self, self.controller)
+        self.resultsRadiobuttons.grid(row=1, column=0) 
+        #Create add no results label
+        self.noResultsLabel = ttk.Label(self, text="No Results") 
+        self.noResultsLabel.grid(row=1, column=0)
         #Create and add see more info button
         self.infoButton = ttk.Button(self, text="See More Info", command=lambda :infoCommand(self))
         self.infoButton.grid(row=2, column=0)
