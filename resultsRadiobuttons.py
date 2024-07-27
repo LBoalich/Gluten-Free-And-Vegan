@@ -23,7 +23,7 @@ class ResultsRadiobuttonsWindow(ttk.Frame):
             row = 0
             column = 0
             for result in self.resultsList:
-                tk.Radiobutton(self, text=result, variable=self.resultVar, value=result).grid(row=row, column=column)
+                tk.Radiobutton(self, text=result.getName(), variable=self.resultVar, value=result).grid(row=row, column=column)
                 if column == 0:
                     column += 1
                 else:
