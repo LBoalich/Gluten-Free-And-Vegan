@@ -32,6 +32,8 @@ class Controller():
         #Create filter entree price range scale attributes
         self.minPrice = 5
         self.maxPrice = 200
+        #Create attribute for refine specials checkbutton
+        self.refineSpecialsCheckVar = 0
         #Create results list
         self.finalResults = []
         #Fill the window dictionary
@@ -89,6 +91,9 @@ class Controller():
     #Define setter for the refine category variable dictionary
     def setRefineCategoryVar(self, key, value):
         self.refineCategoryVarDictonary[key] = value
+    #Define setter for the refine has specials checkbutton variable
+    def setRefineSpecialsCheckbuttonVar(self, var):
+        self.refineSpecialsCheckVar = var
     #Define setter for the final results list
     def setFinalResults(self):
         #Reset final results to empty list
@@ -121,9 +126,14 @@ class Controller():
             priceMatch = self.restaurants.priceRangeMatch(self.minPrice, self.maxPrice)
         else:
             priceMatch = restaurantList
+        #If the filter specials checkbutton was selected and refine has specials checkbutton selected, add matching restaurants to specials list.  Otherwise add all restaurants.
+        if self.specialsVar == 1 and self.refineSpecialsCheckVar == 1:
+            specialsMatch = self.restaurants.hasSpecials()
+        else:
+            specialsMatch = restaurantList
         #Set the final results list based on matches
         for restaurant in restaurantList:
-            if (restaurant in hourMatches) and (restaurant in categoryMatches) and (restaurant in priceMatch):
+            if (restaurant in hourMatches) and (restaurant in categoryMatches) and (restaurant in priceMatch) and (restaurant in specialsMatch):
                 self.finalResults.append(restaurant)
         #Add the results to the results window
         self.addResultsRadiobuttons()

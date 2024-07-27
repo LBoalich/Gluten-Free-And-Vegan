@@ -13,5 +13,5 @@ class SpecialsWindow(ttk.Frame):
         self.grid_columnconfigure(0, weight=1)
         #Create and add specials checkbutton
         self.specialCheck = tk.IntVar()
-        self.specialsCheckbutton = tk.Checkbutton(self, text="Has Happy Hour or Specials", variable=self.specialCheck)
+        self.specialsCheckbutton = ttk.Checkbutton(self, text="Has Happy Hour or Specials", variable=self.specialCheck, command=lambda : self.controller.setRefineSpecialsCheckbuttonVar(self.specialCheck.get()), onvalue=1, offvalue=0)
         self.specialsCheckbutton.grid(row=0, column=0)
