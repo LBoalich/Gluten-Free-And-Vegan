@@ -10,6 +10,10 @@ class ResultsRadiobuttonsWindow(ttk.Frame):
         self.controller = controller
         #Add results list attribute
         self.resultsList = []
+        #Add attribute to track results radio button variable
+        self.resultVar = tk.StringVar()
+        #Add attribute to hold the radio buttons
+        self.resultsRadioButtons = []
         #Set up the grid
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure((0, 1), weight=1)   
@@ -18,12 +22,14 @@ class ResultsRadiobuttonsWindow(ttk.Frame):
         #Get the results data
         self.resultsList = self.controller.getFinalResults()
         if len(self.resultsList) > 0:
-            self.resultVar = tk.StringVar()
             self.resultVar.set(self.resultsList[0])
             row = 0
             column = 0
             for result in self.resultsList:
-                tk.Radiobutton(self, text=result.getName(), variable=self.resultVar, value=result).grid(row=row, column=column)
+                name = result.getName()
+                resultsRadioButton = tk.Radiobutton(self, text=name, variable=self.resultVar, value=name)
+                self.resultsRadioButtons.append(resultsRadioButton)
+                resultsRadioButton.grid(row=row, column=column)
                 if column == 0:
                     column += 1
                 else:

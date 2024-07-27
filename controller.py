@@ -9,6 +9,7 @@ from category import CategoryWindow
 from neighborhood import NeighborhoodWindow
 from price import PriceWindow
 from specials import SpecialsWindow
+from result import ResultWindow
 
 #Create controlller class
 class Controller():
@@ -36,6 +37,8 @@ class Controller():
         self.refineSpecialsCheckVar = 0
         #Create results list
         self.finalResults = []
+        #Create result radio button variable attribute
+        self.resultRadioVar = ""
         #Fill the window dictionary
         for window in (HomePage, RefineWindow, ResultsWindow):
             windowName = window.__name__
@@ -138,6 +141,9 @@ class Controller():
         #Add the results to the results window
         self.addResultsRadiobuttons()
     #Define module that adds the checked filter categories to the refine window
+    #Define setter for the result radio button variable
+    def setResultRadioVar(self, var):
+        self.resultRadioVar = var
     def addFilterCategoriesToRefine(self):
         if self.hoursVar == 1:
             self.refine.hourWindow.grid(row=1, column=0)
@@ -149,9 +155,16 @@ class Controller():
             self.refine.priceWindow.grid(row=4, column=0)
         if self.specialsVar == 1:
             self.refine.specialsWindow.grid(row=5, column=0)
-    #Define module to add results checkbuttons on refine filter button click
-    #Create and add checkbuttons winodw
+    #Define module to add results radiobuttons on refine filter button click
     def addResultsRadiobuttons(self):
         self.results.resultsRadiobuttons.addResults()
         if len(self.finalResults) > 0:
             self.results.noResultsLabel.destroy()
+    #Define module that returns the selected restaurant from results
+    def getSelectedRestaurant(self):
+        for result in self.finalResults:
+            if self.resultRadioVar == result.getName():
+                return result
+    #Define module to open the result window
+    def openResultWindow(self):
+        ResultWindow(controller=self)
