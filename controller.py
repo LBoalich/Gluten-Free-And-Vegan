@@ -30,6 +30,8 @@ class Controller():
         self.maxHour = 24
         #Create category checkbutton dictionary to hold variable values from refine window
         self.refineCategoryVarDictonary = {}
+        #Create neighborhood checkbutton dictionary to hold variable values from refine window
+        self.neighborhoodsCheckbuttonVariables = {}
         #Create filter entree price range scale attributes
         self.minPrice = 5
         self.maxPrice = 200
@@ -94,6 +96,9 @@ class Controller():
     #Define setter for the refine category variable dictionary
     def setRefineCategoryVar(self, key, value):
         self.refineCategoryVarDictonary[key] = value
+    #Define setter for the refine neighborhood variable dictionary
+    def setRefineNeighborhoodVar(self, key, value):
+        self.neighborhoodsCheckbuttonVariables[key] = value.get()
     #Define setter for the refine has specials checkbutton variable
     def setRefineSpecialsCheckbuttonVar(self, var):
         self.refineSpecialsCheckVar = var
@@ -122,6 +127,15 @@ class Controller():
             categoryMatches = self.restaurants.categoryMatch(checkedCategories)
         else:
             categoryMatches = restaurantList
+        #If neighborhood was selected in the filter, get the neighborhoods selected and show matching restaurants.  Otherwise set to all restaurants.
+        if self.neighborhoodVar == 1:
+            onlySelected = []
+            for value in self.neighborhoodsCheckbuttonVariables:
+                if value != "Off":
+                    onlySelected.append(value)
+            neighborhoodMatches = self.restaurants.neighborhoodMatch(onlySelected)
+        else:
+            neighborhoodMatches = self.restaurants
         #If entree price range selected in filter, get the min and max price and set to the controller attributes, find matches and add to price list.  Otherwise set price matches to all restaurants.
         if self.priceVar == 1:
             self.minPrice = self.refine.priceWindow.lowScale.get()
@@ -136,7 +150,7 @@ class Controller():
             specialsMatch = restaurantList
         #Set the final results list based on matches
         for restaurant in restaurantList:
-            if (restaurant in hourMatches) and (restaurant in categoryMatches) and (restaurant in priceMatch) and (restaurant in specialsMatch):
+            if (restaurant in hourMatches) and (restaurant in categoryMatches) and (restaurant in priceMatch) and (restaurant in specialsMatch) and (restaurant in neighborhoodMatches):
                 self.finalResults.append(restaurant)
         #Add the results to the results window
         self.addResultsRadiobuttons()
