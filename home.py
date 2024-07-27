@@ -9,15 +9,15 @@ class HomePage(ttk.Frame):
     def __init__(self, parent, controller):
         """Sets up the window using search window and filter window classes."""
         super().__init__(parent)
-        self.controller = controller
+        self.controller = controller #Create the controller
         #Set up grid
         self.pack(side="top", fill="both", expand = True)
         self.grid_rowconfigure(0, weight=1)
         self.grid_rowconfigure(1, weight=4)
         self.grid_columnconfigure(0, weight=1)
         #Create widgets
-        self.searchWindow = SearchWindow(self, self.controller)
-        self.filterWindow = FilterWindow(self, self.controller)
+        self.searchWindow = SearchWindow(self, self.controller) #Creates search window frame
+        self.filterWindow = FilterWindow(self, self.controller) #Creates filter window frame
         #Add widgets
-        self.searchWindow.grid(row=0, column=0)
-        self.filterWindow.grid(row=1, column=0)
+        self.searchWindow.grid(row=0, column=0) #Add search window to homepage frame
+        self.filterWindow.grid(row=1, column=0) #Add filter window to homepage frame

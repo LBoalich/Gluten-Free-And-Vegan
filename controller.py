@@ -1,3 +1,4 @@
+#Imports
 from restaurants import Restaurants
 from home import HomePage
 from refine import RefineWindow
@@ -16,58 +17,62 @@ class Controller():
     """Controlls interactions between the GUI and Restaurants class."""
     def __init__(self, root, restaurantList):
         """Sets up the root, model, and windows."""
-        self.root = root
+        #Create attribute to hold the root
+        self.root = root 
+        #Create attribute to the list of restaurants
         self.restaurants = Restaurants(restaurantList)
+        #Create dictionary to hold the 3 frames (homepage, filter, refine)
         self.windows = {}
-        #Create filter category checkbox attributes
+        #Create filter category checkbox variable attributes initalized to unchecked
         self.hoursVar = 0
         self.categoryVar = 0
         self.neighborhoodVar = 0
         self.priceVar = 0
         self.specialsVar = 0
         #Create filter hour scale variable attributes
-        self.minHour = 0
-        self.maxHour = 24
+        self.minHour = 0 #Initialized to smalled possible value
+        self.maxHour = 24 #Initialized to largest possible value
         #Create category checkbutton dictionary to hold variable values from refine window
         self.refineCategoryVarDictonary = {}
         #Create neighborhood checkbutton dictionary to hold variable values from refine window
         self.neighborhoodsCheckbuttonVariables = {}
-        #Create filter entree price range scale attributes
-        self.minPrice = 5
-        self.maxPrice = 200
-        #Create attribute for refine specials checkbutton
+        #Create filter entree price range scale variable attributes
+        self.minPrice = 5 #Initialized to smalled value
+        self.maxPrice = 200 #Initialized to largest value
+        #Create attribute for refine specials checkbutton variable initialized to unchecked
         self.refineSpecialsCheckVar = 0
-        #Create results list
+        #Create results list used to hold restaurants that match refinement
         self.finalResults = []
-        #Create result radio button variable attribute
+        #Create result radio button variable attribute initialized to empty string
         self.resultRadioVar = ""
         #Fill the window dictionary
         for window in (HomePage, RefineWindow, ResultsWindow):
+            #Get the string representation of the name of the window
             windowName = window.__name__
+            #Create the window with root as parent and controller set to self
             frame = window(self.root, controller=self)
+            #Add frame to the windows dictionary using windowName as key
             self.windows[windowName] = frame
+            #Add the frame
             frame.grid(row=0, column=0, sticky="nsew")
-        #Create all of the windows
+        #Create refrence to the windows held in windows dictionary
         self.home = self.windows["HomePage"]
         self.refine = self.windows["RefineWindow"]
         self.results = self.windows["ResultsWindow"]
-        self.search = SearchWindow(self.home, self)
-        self.filter = FilterWindow(self.home, self)
-        self.hour = HourWindow(self.refine, self)
-        self.category = CategoryWindow(self.refine, self)
-        self.neighborhood = NeighborhoodWindow(self.refine, self)
-        self.price = PriceWindow(self.refine, self)
-        self.specials = SpecialsWindow(self.refine, self)
         #Set the home page as the current window
         self.setWindow("HomePage")
+    #Define module to set the current window shown
+    def setWindow(self, window):
+        #Get the disired window from the windows dictionary
+        currentWindow = self.windows[window]
+        #Bring the window to the top
+        currentWindow.tkraise()
     #Define module to get list of categories
     def getCategoryList(self):
-        categories = self.restaurants.getCategories()
-        return categories
+         return self.restaurants.getCategories()
     #Define module to get list of neighborhoods
     def getNeighborhoodList(self):
-        neighborhoods = self.restaurants.getNeighborhoods()
-        return neighborhoods
+        return self.restaurants.getNeighborhoods()
     #Define module to get the checked categories in refine window
     def getRefineCategoryChecked(self):
         refineCategoryChecked = []
@@ -78,10 +83,6 @@ class Controller():
     #Define module to get the final results
     def getFinalResults(self):
         return self.finalResults
-    #Define module to set the current window shown
-    def setWindow(self, window):
-        currentWindow = self.windows[window]
-        currentWindow.tkraise()
     #Define setters for the filter checkbutton variables
     def setHoursVar(self, var):
         self.hoursVar = var
@@ -112,12 +113,15 @@ class Controller():
         if self.hoursVar == 1:
             minScale = self.refine.hourWindow.startScale.get()
             maxScale = self.refine.hourWindow.endScale.get()
+            #Mutate data so that it matches format "0000" to work in hours match function
             stringMinHour = str(minScale) + "00"
             intMinHour = int(stringMinHour)
             stringMaxHour = str(maxScale) + "00"
             intMaxHour = int(stringMaxHour)
+            #Set the controller attributes
             self.minHour = intMinHour
             self.maxHour = intMaxHour
+            #Find the restaurants that match
             hourMatches = self.restaurants.hoursMatch(self.minHour, self.maxHour)
         else: 
             hourMatches = restaurantList
@@ -135,7 +139,7 @@ class Controller():
                     onlySelected.append(value)
             neighborhoodMatches = self.restaurants.neighborhoodMatch(onlySelected)
         else:
-            neighborhoodMatches = self.restaurants
+            neighborhoodMatches = restaurantList
         #If entree price range selected in filter, get the min and max price and set to the controller attributes, find matches and add to price list.  Otherwise set price matches to all restaurants.
         if self.priceVar == 1:
             self.minPrice = self.refine.priceWindow.lowScale.get()
@@ -154,10 +158,10 @@ class Controller():
                 self.finalResults.append(restaurant)
         #Add the results to the results window
         self.addResultsRadiobuttons()
-    #Define module that adds the checked filter categories to the refine window
     #Define setter for the result radio button variable
     def setResultRadioVar(self, var):
         self.resultRadioVar = var
+    #Define module that adds the checked filter categories to the refine window
     def addFilterCategoriesToRefine(self):
         if self.hoursVar == 1:
             self.refine.hourWindow.grid(row=1, column=0)
@@ -169,15 +173,18 @@ class Controller():
             self.refine.priceWindow.grid(row=4, column=0)
         if self.specialsVar == 1:
             self.refine.specialsWindow.grid(row=5, column=0)
-    #Define module to add results radiobuttons on refine filter button click
+    #Define module to add results radiobuttons to results on refine filter button click
     def addResultsRadiobuttons(self):
         self.results.resultsRadiobuttons.addResults()
+        #If there are results, remove the no results label
         if len(self.finalResults) > 0:
             self.results.noResultsLabel.destroy()
     #Define module that returns the selected restaurant from results
     def getSelectedRestaurant(self):
-        for result in self.finalResults:
-            if self.resultRadioVar == result.getName():
+        #Loops through all restaurants that matched refine filter
+        for result in self.finalResults: 
+            #When the restaurant name matches the clicked radio button variable, return the restaurant
+            if self.resultRadioVar == result.getName(): 
                 return result
     #Define module to open the result window
     def openResultWindow(self):

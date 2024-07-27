@@ -9,8 +9,8 @@ class Restaurants():
         self.restaurants = []
         self.categories = []
         self.neighborhoods = []
-        self.minPrice = 2000
-        self.maxPrice = 0
+        self.minPrice = 2000 #Initialze to value extremely large to not auto filter out matches
+        self.maxPrice = 0 #Initialize to free to not auto filter out matches
         for restaurant in restaurantList:
             name = restaurant["name"]
             website = restaurant["website"]

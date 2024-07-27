@@ -8,7 +8,7 @@ class ResultWindow(tk.Toplevel):
     def __init__(self, controller):
         """Sets up window, widgets and data."""
         tk.Toplevel.__init__(self)
-        self.controller = controller
+        self.controller = controller #Create the controller
         #Create attribute to hold the selected restaurant
         self.restaurant = self.controller.getSelectedRestaurant()
         #Set up grid

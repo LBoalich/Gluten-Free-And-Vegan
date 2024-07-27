@@ -8,7 +8,7 @@ class HourWindow(ttk.Frame):
     def __init__(self, parent, controller):
         """Sets up the window, widgets, and data."""
         super().__init__(parent)
-        self.controller = controller
+        self.controller = controller #Create controller
         #Set up grid
         self.rowconfigure(0, weight=1)
         self.columnconfigure((0, 1), weight=1)

@@ -13,14 +13,14 @@ class RefineWindow(ttk.Frame):
     def __init__(self, parent, controller):
         """Sets up window, widgets, and data."""
         super().__init__(parent)
-        self.controller = controller
+        self.controller = controller #Create controller
         #Set up grid
         self.grid_rowconfigure((0, 1, 2, 3, 4, 5, 6, 7), weight=1)
         self.grid_columnconfigure(0, weight=1)
         #Create and add further refine label
         self.refineLabel = ttk.Label(self, text="Refine Filter")
         self.refineLabel.grid(row=0, column=0)
-        #Create the classes that allow refinement
+        #Create the frames that allow refinement
         self.hourWindow = HourWindow(self, self.controller)
         self.categoryWindow = CategoryWindow(self, self.controller)
         self.neighborhoodWindow = NeighborhoodWindow(self, self.controller)

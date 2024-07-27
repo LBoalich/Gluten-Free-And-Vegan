@@ -18,17 +18,17 @@ class Main(tk.Tk):
     def __init__(self):
         """Sets up the main window and widgets and data."""
         super().__init__()
-        self.title("GLUTEN FREE AND VEGAN")
-        self.geometry("1000x700")
-        self.mainWindow = ttk.Frame(self)
-        self.mainWindow.pack(side="top", fill="both", expand = True)
-        self.mainWindow.grid_rowconfigure(0, weight=1)
-        self.mainWindow.grid_columnconfigure(0, weight=1)
+        self.title("GLUTEN FREE AND VEGAN") #Title of the main window
+        self.geometry("1000x700") #Size of the main window
+        self.mainWindow = ttk.Frame(self) #Frame in the main window that helps control which frame(homepage, filter, refine) is visible.
+        self.mainWindow.pack(side="top", fill="both", expand = True) #Adds the frame to the main window
+        self.mainWindow.grid_rowconfigure(0, weight=1) #Creates the grid stucture the rows
+        self.mainWindow.grid_columnconfigure(0, weight=1) #Creates the grid stuctire for the columns
         #Initialize the controller
-        Controller(self.mainWindow, restaurantList)
+        Controller(self.mainWindow, restaurantList) #Creates controller that links the GUI and the Restaurant data
         #Run the program
         self.mainloop()
 
 #Automatically run program
 if __name__ == "__main__":
-    Main()
+    Main() #Instantiate the Main object, the parent, that controls the entire program

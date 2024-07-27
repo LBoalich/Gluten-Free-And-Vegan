@@ -8,14 +8,14 @@ class FilterWindow(ttk.Frame):
     def __init__(self, parent, controller):
         """Sets up window and widgets."""
         super().__init__(parent)
-        self.controller = controller
+        self.controller = controller #Create the controller
         #Set up grid
         self.grid_rowconfigure((0, 1, 2, 3, 4, 5, 6), weight=1)
         self.grid_columnconfigure(0, weight=1)
         #Create and add filter label to the window
         self.filterLabel = ttk.Label(self, text="Filter Categories")
         self.filterLabel.grid(row=0, column=0)
-        #Create checkbutton variables to get the on/off value of the checkbutton
+        #Create checkbutton variables to get the on/off value of the  corresponding checkbutton
         self.hoursVar = tk.IntVar() 
         self.categoryVar = tk.IntVar() 
         self.neighborhoodVar = tk.IntVar() 
