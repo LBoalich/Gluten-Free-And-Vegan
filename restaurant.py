@@ -1,3 +1,5 @@
+from restaurantList import restaurantList
+
 #Create restaurant class
 class Restaurant():
     """Represents a restaurant."""
@@ -68,10 +70,17 @@ class Restaurant():
     def stringPrice(self):
         return ("$" + str(self.price[0]) + " to $" + str(self.price[1]))
     def stringSpecials(self):
+        """Returns the string representation of specials."""
+        stringSpecials = ""
         if self.specials == None:
-            return "None"
+            stringSpecials = "None"
         else:
-            return "Fix this later."
+            for key, value in self.specials.items():
+                stringSpecials += ("\n" + key + ":")
+                start = self.militaryToStandard(value[0])
+                end = self.militaryToStandard(value[1])
+                stringSpecials += ("\n" + start + "to" + end)
+        return stringSpecials
     #Define module to turn military time to standard time
     def militaryToStandard(self, time):
         """Converts military time to standard time in string format."""
