@@ -23,5 +23,5 @@ class ResultsWindow(ttk.Frame):
         self.noResultsLabel = ttk.Label(self, text="No Results") 
         self.noResultsLabel.grid(row=1, column=0)
         #Create and add see more info button
-        self.infoButton = ttk.Button(self, text="See More Info", command=lambda :[self.controller.setResultRadioVar(self.resultsRadiobuttons.resultVar.get()), self.controller.openResultWindow()])
+        self.infoButton = ttk.Button(self, text="See More Info", command=lambda :[self.controller.setResultRadioVar(self.resultsRadiobuttons.resultVar.get()), self.controller.openResultWindow(self.controller.getSelectedRestaurant())])
         self.infoButton.grid(row=2, column=0)

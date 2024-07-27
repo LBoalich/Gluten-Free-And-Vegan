@@ -23,6 +23,8 @@ class Controller():
         self.restaurants = Restaurants(restaurantList)
         #Create dictionary to hold the 3 frames (homepage, filter, refine)
         self.windows = {}
+        #Create search combobox variable attribute initialized to empty string
+        self.searchComboBoxVar = ""
         #Create filter category checkbox variable attributes initalized to unchecked
         self.hoursVar = 0
         self.categoryVar = 0
@@ -61,12 +63,9 @@ class Controller():
         self.results = self.windows["ResultsWindow"]
         #Set the home page as the current window
         self.setWindow("HomePage")
-    #Define module to set the current window shown
-    def setWindow(self, window):
-        #Get the disired window from the windows dictionary
-        currentWindow = self.windows[window]
-        #Bring the window to the top
-        currentWindow.tkraise()
+    #Define module to get the value picked in the search combobox
+    def getSearchComboBoxVar(self):
+        return self.home.searchWindow.searchComboBoxVar.get()
     #Define module to get list of categories
     def getCategoryList(self):
          return self.restaurants.getCategories()
@@ -83,6 +82,15 @@ class Controller():
     #Define module to get the final results
     def getFinalResults(self):
         return self.finalResults
+    #Define module to set the current window shown
+    def setWindow(self, window):
+        #Get the disired window from the windows dictionary
+        currentWindow = self.windows[window]
+        #Bring the window to the top
+        currentWindow.tkraise()
+    #Define setter for the search combobox variable
+    def setSearchComboBoxVar(self, var):
+        self.searchComboBoxVar = var
     #Define setters for the filter checkbutton variables
     def setHoursVar(self, var):
         self.hoursVar = var
@@ -187,5 +195,5 @@ class Controller():
             if self.resultRadioVar == result.getName(): 
                 return result
     #Define module to open the result window
-    def openResultWindow(self):
-        ResultWindow(controller=self)
+    def openResultWindow(self, restaurant):
+        ResultWindow(controller=self, restaurant=restaurant)

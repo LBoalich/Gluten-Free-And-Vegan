@@ -7,6 +7,7 @@ class Restaurants():
     def __init__(self, restaurantList):
         """Constructor creates a list of restaurant objects, a list of categories, a list of neighborhoods, and tracks the minimum and maximum entree prices."""
         self.restaurants = []
+        self.names = []
         self.categories = []
         self.neighborhoods = []
         self.minPrice = 2000 #Initialze to value extremely large to not auto filter out matches
@@ -22,6 +23,8 @@ class Restaurants():
             price = restaurant["price"]
             specials = restaurant["specials"]
             self.restaurants.append(Restaurant(name, website, address, phone, hours, category, neighborhood, price, specials))
+            if name not in self.names:
+                self.names.append(name)
             if category not in self.categories:
                 self.categories.append(category) 
             if neighborhood not in self.neighborhoods:
@@ -45,6 +48,9 @@ class Restaurants():
         restaurantsString += "\nLOWEST ENTREE PRICE: $" + str(self.minPrice) + "\nHIGHEST ENTREE PRICE: $" + str(self.maxPrice)
         return restaurantsString
     #Define the getters:
+    def getNames(self):
+        """Returns the restaurant name list."""
+        return self.names
     def getCategories(self):
         """Returns the restaurant category list."""
         return self.categories   
@@ -61,6 +67,11 @@ class Restaurants():
         """Returns the restuaruant list."""
         return self.restaurants
     #Define filter modules
+    def nameMatch(self, name):
+        """Returns the restaurant object whose name matches the given name."""
+        for restaurant in self.restaurants:
+            if restaurant.getName() == name:
+                return restaurant
     def categoryMatch(self, filterCategories):
         """Returns the restaurant objects that match the filter categories picked by the user."""
         restaurantList = []

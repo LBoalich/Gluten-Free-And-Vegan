@@ -5,12 +5,12 @@ from tkinter import ttk
 #Define filter window class
 class ResultWindow(tk.Toplevel):
     """Allows users to view the restaurant information that they picked in results window."""
-    def __init__(self, controller):
+    def __init__(self, controller, restaurant):
         """Sets up window, widgets and data."""
         tk.Toplevel.__init__(self)
         self.controller = controller #Create the controller
         #Create attribute to hold the selected restaurant
-        self.restaurant = self.controller.getSelectedRestaurant()
+        self.restaurant = restaurant
         #Set up grid
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(0, weight=1)
