@@ -16,4 +16,4 @@ class ResultWindow(tk.Toplevel):
         self.grid_columnconfigure(0, weight=1)
         #Create and add restaurant information label
         self.restaurantLabel = ttk.Label(self, text=self.restaurant)
-        self.restaurantLabel.grid(row=0, column=0)
+        self.restaurantLabel.grid(row=0, column=0, padx=200, pady=50)

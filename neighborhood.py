@@ -10,12 +10,12 @@ class NeighborhoodWindow(ttk.Frame):
         self.controller = controller
         #Initialize the instance variables for the data
         self.hoods = self.controller.getNeighborhoodList()
-        #Create check buttons variable dictionay
-        self.neighborhoodsCheckbuttonVariables = {}
-        for neighborhood in self.hoods:
-            self.neighborhoodsCheckbuttonVariables[neighborhood] = tk.StringVar()
-        #Create dictionary to hold the checkbuttons
-        self.neighborhoodsCheckbuttons = {}
+        #Create attribute to hold the radiobutton variable
+        self.refineNeighborhoodVar = tk.StringVar()
+        #Set defualt value of radiobutton variable to "Noda"
+        self.refineNeighborhoodVar.set("Noda")
+        #Create list to hold the radiobuttons
+        self.neighborhoodsRadiobuttons = []
         #Set up grid
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure((0, 1, 2), weight=1)   
@@ -26,15 +26,15 @@ class NeighborhoodWindow(ttk.Frame):
         self.addNeighborhoods()
     #Method to create and add neighborhood refinement
     def createNeighborhoods(self):
-        for neighborhood, variable in self.neighborhoodsCheckbuttonVariables.items():
-            checkbutton = ttk.Checkbutton(self, text=neighborhood, onvalue=neighborhood, offvalue="Off", variable=variable, command=lambda: [print(self.neighborhoodsCheckbuttonVariables[neighborhood].get()), self.controller.setRefineNeighborhoodVar(neighborhood, self.neighborhoodsCheckbuttonVariables[neighborhood])])
-            self.neighborhoodsCheckbuttons[neighborhood] = checkbutton
+        for neighborhood in self.hoods:
+            radiobutton = tk.Radiobutton(self, text=neighborhood, variable=self.refineNeighborhoodVar, value=neighborhood)
+            self.neighborhoodsRadiobuttons.append(radiobutton)
     #Modult to add neighborhoods to windwo
     def addNeighborhoods(self):
         row = 0
         column = 1
-        for checkbutton in self.neighborhoodsCheckbuttons.values():
-            checkbutton.grid(row=row, column=column, sticky="W")
+        for radiobutton in self.neighborhoodsRadiobuttons:
+            radiobutton.grid(row=row, column=column, sticky="W")
             if column == 1:
                 column = 2
             else:

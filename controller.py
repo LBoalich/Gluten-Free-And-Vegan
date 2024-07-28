@@ -34,8 +34,8 @@ class Controller():
         #Create filter hour scale variable attributes
         self.minHour = 0 #Initialized to smalled possible value
         self.maxHour = 24 #Initialized to largest possible value
-        #Create category checkbutton dictionary to hold variable values from refine window
-        self.refineCategoryVarDictonary = {}
+        #Create category radiobutton attribute to hold variable value from refine window
+        self.refineCategoryVarDictonary = ""
         #Create neighborhood checkbutton dictionary to hold variable values from refine window
         self.neighborhoodsCheckbuttonVariables = {}
         #Create filter entree price range scale variable attributes
@@ -74,11 +74,7 @@ class Controller():
         return self.restaurants.getNeighborhoods()
     #Define module to get the checked categories in refine window
     def getRefineCategoryChecked(self):
-        refineCategoryChecked = []
-        for key, value in self.refineCategoryVarDictonary.items():
-            if value == 1:
-                refineCategoryChecked.append(key)
-        return refineCategoryChecked
+        return self.refine.categoryWindow.refineCategoryVar.get() 
     #Define module to get the final results
     def getFinalResults(self):
         return self.finalResults
@@ -135,17 +131,14 @@ class Controller():
             hourMatches = restaurantList
         #If cateogry was selected in filter, get the categories chosen and mathching restaurants.  Otherwise set category matches to all restaurants.
         if self.categoryVar == 1:
-            checkedCategories = self.getRefineCategoryChecked()
-            categoryMatches = self.restaurants.categoryMatch(checkedCategories)
+            checkedCategory = self.getRefineCategoryChecked()
+            categoryMatches = self.restaurants.categoryMatch(checkedCategory)
         else:
             categoryMatches = restaurantList
         #If neighborhood was selected in the filter, get the neighborhoods selected and show matching restaurants.  Otherwise set to all restaurants.
         if self.neighborhoodVar == 1:
-            onlySelected = []
-            for value in self.neighborhoodsCheckbuttonVariables:
-                if value != "Off":
-                    onlySelected.append(value)
-            neighborhoodMatches = self.restaurants.neighborhoodMatch(onlySelected)
+            selectedButton = self.refine.neighborhoodWindow.refineNeighborhoodVar.get()
+            neighborhoodMatches = self.restaurants.neighborhoodMatch(selectedButton)
         else:
             neighborhoodMatches = restaurantList
         #If entree price range selected in filter, get the min and max price and set to the controller attributes, find matches and add to price list.  Otherwise set price matches to all restaurants.
@@ -197,3 +190,4 @@ class Controller():
     #Define module to open the result window
     def openResultWindow(self, restaurant):
         ResultWindow(controller=self, restaurant=restaurant)
+      
