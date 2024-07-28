@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, PhotoImage
 from resultsRadiobuttons import ResultsRadiobuttonsWindow
 
 #Define filter results window class

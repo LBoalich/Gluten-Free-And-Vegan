@@ -1,10 +1,8 @@
-from restaurantList import restaurantList
-
 #Create restaurant class
 class Restaurant():
     """Represents a restaurant."""
-    def __init__(self, name, website, address, phone, hours, category, neighborhood, price, specials = None):
-        """Constructor creates a restaurant with the given name, website, address, phone number, hours, category, neighborhood, entree price range, and specials which is instantiated to None if omitted."""
+    def __init__(self, name, website, address, phone, hours, category, neighborhood, price, image, specials = None):
+        """Constructor creates a restaurant with the given name, website, address, phone number, hours, category, neighborhood, entree price range, image, and specials which is instantiated to None if omitted."""
         self.name = name
         self.website = website
         self.address = address
@@ -13,6 +11,7 @@ class Restaurant():
         self.category = category
         self.neighborhood = neighborhood
         self.price = price
+        self.image = image
         self.specials = specials
     def __str__(self):
         """Returns the string representation of the restaurant."""
@@ -50,6 +49,9 @@ class Restaurant():
     def getPrice(self):
         """"Returns the restaurant's entree price range."""
         return self.price
+    def getImage(self):
+        """Returns the restaurant's image."""
+        return self.image
     def getSpecials(self):
         """"Returns the restaurant's specials or None if they do not offer specials."""
         return self.specials
@@ -113,10 +115,11 @@ def main():
         category = restaurant["category"]
         neighborhood = restaurant["neighborhood"]
         price = restaurant["price"]
+        image = restaurant["image"]
         specials = restaurant["specials"]
-        restaurantObjects.append(Restaurant(name, website, address, phone, hours, category, neighborhood, price, specials))
+        restaurantObjects.append(Restaurant(name, website, address, phone, hours, category, neighborhood, price, image, specials))
     for restaurant in restaurantObjects:
-        print(restaurant)
+        print(restaurant.getImage())
 
 #Runs program automatically when file is opened. For testing purposes, will be deleted.
 if __name__ == "__main__":

@@ -21,8 +21,9 @@ class Restaurants():
             category = restaurant["category"]
             neighborhood = restaurant["neighborhood"]
             price = restaurant["price"]
+            image = restaurant["image"]
             specials = restaurant["specials"]
-            self.restaurants.append(Restaurant(name, website, address, phone, hours, category, neighborhood, price, specials))
+            self.restaurants.append(Restaurant(name, website, address, phone, hours, category, neighborhood, price, image, specials))
             if name not in self.names:
                 self.names.append(name)
             if category not in self.categories:
@@ -112,14 +113,14 @@ class Restaurants():
                         if restaurant not in restaurantList and hourList[0] <= minHour and hourList[1] >= maxHour:
                             restaurantList.append(restaurant)
         return restaurantList
+
 '''
 #Define function that creates restaurants object for testing purposes.  Will be deleted.
 def main():
     """Create restaurants object from a list of restaurant dictionaries."""
     restaurants = Restaurants(restaurantList)
-    hourMatch = restaurants.hoursMatch(1130, 1500)
-    for restaurant in hourMatch:
-        print(restaurant)
+    for restaurant in restaurants.restaurants:
+        print(restaurant.getImage())
 
 
 

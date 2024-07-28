@@ -8,7 +8,7 @@ Short Description: This program allows users to search for restaurants in the Ch
 
 #Imports
 import tkinter as tk
-from tkinter import ttk 
+from tkinter import ttk, PhotoImage 
 from restaurantList import restaurantList
 from controller import Controller
 
